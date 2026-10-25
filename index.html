@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Arctic Cloud Booking</title>
+ 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+ 
+<style>
+:root{
+  --bg:#0C1014;
+  --bg-2:#171D23;
+  --surface:#1C232A;
+  --surface-2:#232B33;
+  --ink:#F2F3F4;
+  --muted:#9AA2AB;
+  --line:rgba(255,255,255,.12);
+  --line-strong:rgba(255,255,255,.34);
+  --metal:linear-gradient(135deg,#F4F4F5 0%,#C3C7CC 45%,#8E949B 100%);
+  --metal-text:linear-gradient(180deg,#FAFAFA 0%,#C9CCD0 50%,#8C9299 100%);
+  --on-metal:#12161A;
+  --green:#6FD9A3;
+  --green-bg:rgba(111,217,163,.12);
+  --amber:#EDBB62;
+  --amber-bg:rgba(237,187,98,.13);
+  --red:#FF8A80;
+  --red-bg:rgba(255,138,128,.1);
+  --display:'Anton','Arial Narrow','Impact',sans-serif;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --body:'DM Sans','Segoe UI',Roboto,Arial,sans-serif;
+}
+ 
+*{box-sizing:border-box}
+ 
+body{
+  margin:0;
+  font-family:var(--body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+}
+ 
+button,input{font-family:inherit}
+ 
+:focus-visible{
+  outline:2px solid rgba(255,255,255,.75);
+  outline-offset:3px;
+}
+ 
+/* ---------- Estructura Móvil Optimizada ---------- */
+.shell{
+  width:100%;
+  min-height:100vh;
+  margin:0 auto;
+  background:linear-gradient(180deg,#1A2128,#141A20);
+  display:flex;
+  flex-direction:column;
+}
+ 
+.stripe{
+  height:2px;
+  background:linear-gradient(90deg,transparent,#E4E6E9 50%,transparent);
+}
+ 
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:16px 20px;
+  border-bottom:1px solid var(--line);
+  background:var(--bg);
+  position:sticky;
+  top:0;
+  z-index:40;
+}
+ 
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+ 
+.brand-mark{
+  flex:none;
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:1.8rem;
+  line-height:1;
+  background:var(--metal-text);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+ 
+.brand h1{
+  margin:0;
+  font-size:.72rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.brand p{margin:2px 0 0;font-size:.75rem;color:var(--muted)}
+ 
+main{
+  padding:24px 20px 40px;
+  flex:1;
+}
+ 
+/* ---------- Botones ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:.8rem 1.2rem;
+  border:1px solid transparent;
+  border-radius:12px;
+  font-weight:500;
+  font-size:.8rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  text-decoration:none;
+}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+ 
+.btn-primary{background:var(--metal);color:var(--on-metal);font-weight:700}
+.btn-primary:hover:not(:disabled){filter:brightness(1.08)}
+ 
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.btn-ok{background:var(--green-bg);color:var(--green);border-color:rgba(111,217,163,.4)}
+.btn-delete{background:transparent;color:var(--red);border-color:rgba(255,138,128,.38)}
+.btn-delete:hover{background:var(--red-bg);border-color:var(--red)}
+ 
+.btn-sm{padding:.5rem .8rem;font-size:.7rem}
+.btn-lg{padding:1.1rem 1.2rem;font-size:.9rem;width:100%;border-radius:14px}
+ 
+.topbar .btn{border-radius:999px;padding:.5rem 1rem;font-size:.7rem}
+ 
+/* ---------- Vistas ---------- */
+.view-section{display:none}
+.view-section.active{display:block}
+ 
+.page-head{margin-bottom:28px}
+.page-head h2{
+  margin:0;
+  font-family:var(--display);
+  font-weight:400;
+  font-size:2.8rem;
+  line-height:1;
+  text-transform:uppercase;
+  background:var(--metal-text);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.page-head p{margin:12px 0 0;color:var(--muted);font-weight:300;font-size:.95rem}
+ 
+/* ---------- Pasos ---------- */
+.step{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 14px;
+  font-size:.75rem;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.step-n{font-weight:300;color:var(--muted)}
+.step::after{content:"";flex:1;height:1px;background:var(--line)}
+.step-block{margin-bottom:28px}
+ 
+/* ---------- Combos Móviles ---------- */
+.combo-list{display:grid;gap:10px}
+ 
+.combo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:16px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  text-align:left;
+  cursor:pointer;
+  color:var(--ink);
+}
+.combo-radio{
+  flex:none;
+  width:22px;height:22px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.4);
+  position:relative;
+}
+.combo-title{flex:1;font-weight:500;font-size:.95rem}
+.combo-price{font-weight:300;font-size:1.5rem;line-height:1}
+ 
+.combo[aria-checked="true"]{
+  border-color:rgba(255,255,255,.7);
+  background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));
+}
+.combo-radio::after{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border-radius:50%;
+  background:var(--metal);
+  transform:scale(0);
+  transition:transform .3s cubic-bezier(.3,1.7,.5,1);
+}
+.combo[aria-checked="true"] .combo-radio::after{transform:scale(1)}
+.combo[aria-checked="true"] .combo-radio{border-color:var(--ink)}
+ 
+/* ---------- Fecha y campos (16px evita zoom en iOS) ---------- */
+.field label{
+  display:block;
+  margin-bottom:8px;
+  font-size:.7rem;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.field input{
+  width:100%;
+  padding:1rem;
+  background:#12171C;
+  border:1px solid var(--line);
+  border-radius:12px;
+  font-size:16px; /* Vital para celulares */
+  color:var(--ink);
+  color-scheme:dark;
+}
+.field input::placeholder{color:#69727C}
+.field + .field{margin-top:14px}
+.fields-2{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
+.date-field{width:100%}
+ 
+/* ---------- Horarios Cuadrícula Móvil (3 columnas) ---------- */
+.legend{
+  display:flex;flex-wrap:wrap;gap:14px;
+  margin:0 0 12px;
+  font-size:.75rem;
+  color:var(--muted);
+}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.swatch{width:12px;height:12px;border-radius:3px;border:1px solid var(--line-strong);background:var(--surface)}
+.swatch.sel{background:var(--metal);border-color:transparent}
+.swatch.busy{
+  border-color:var(--line);
+  background:repeating-linear-gradient(-45deg,rgba(255,255,255,.1) 0 2px,transparent 2px 5px);
+}
+ 
+.hours-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.hour{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  min-height:56px;
+  padding:10px 6px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  font-weight:500;
+  font-size:.95rem;
+  color:var(--ink);
+  cursor:pointer;
+}
+.hour small{font-size:.65rem;font-weight:400}
+.hour.is-selected{background:var(--metal);border-color:transparent;color:var(--on-metal);font-weight:700}
+.hour.is-booked{
+  cursor:not-allowed;
+  color:#6B747E;
+  border-color:rgba(255,255,255,.07);
+  background:repeating-linear-gradient(-45deg,rgba(255,255,255,.06) 0 3px,transparent 3px 7px),#161C22;
+}
+.hour.is-booked span{text-decoration:line-through}
+.hour.is-past{cursor:not-allowed;opacity:.35;background:transparent}
+.loading{text-align:center;padding:2rem;color:var(--muted);grid-column:1/-1}
+ 
+/* ---------- Cita registrada / Mis citas ---------- */
+.ticket{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
+}
+.ticket-head{
+  padding:24px 20px 20px;
+  text-align:center;
+  background:var(--green-bg);
+}
+.ticket-check{
+  width:48px;height:48px;
+  margin:0 auto 12px;
+  display:grid;place-items:center;
+  border-radius:50%;
+  background:var(--green);
+  color:#0C1014;
+}
+.ticket-head h3{
+  margin:0;
+  font-family:var(--display);
+  font-weight:400;
+  text-transform:uppercase;
+  font-size:1.8rem;
+  color:var(--green);
+}
+.ticket-head p{margin:4px 0 0;color:var(--muted);font-size:.85rem}
+ 
+.appointment-details{padding:6px 20px}
+.appointment-details .row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  font-size:.9rem;
+}
+.appointment-details .row:last-child{border-bottom:0}
+.appointment-details .k{color:var(--muted)}
+.appointment-details .v{font-weight:500;text-align:right;word-break:break-word}
+ 
+.ticket-actions{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:16px 20px 20px;
+  border-top:1px dashed var(--line-strong);
+}
+.ticket-actions .btn{width:100%}
+ 
+/* ---------- Panel propietario móvil ---------- */
+.admin-head{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  margin-bottom:20px;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  border:1px solid var(--line);
+  border-radius:12px;
+  margin-bottom:20px;
+  overflow:hidden;
+  background:rgba(255,255,255,.03);
+}
+.stat{padding:16px 14px;border-left:1px solid var(--line);border-top:1px solid var(--line);text-align:center}
+.stat:nth-child(-n+2){border-top:0}
+.stat:nth-child(odd){border-left:0}
+.stat span{
+  display:block;
+  font-size:.65rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.stat strong{
+  display:block;
+  margin-top:4px;
+  font-weight:300;
+  font-size:2rem;
+  line-height:1.1;
+}
+ 
+.table-container{
+  overflow-x:auto;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(255,255,255,.02);
+}
+table{width:100%;border-collapse:collapse;min-width:640px}
+th,td{
+  padding:12px 14px;
+  text-align:left;
+  vertical-align:top;
+  font-size:.85rem;
+  border-bottom:1px solid var(--line);
+}
+th{
+  background:rgba(255,255,255,.05);
+  color:var(--muted);
+  font-size:.65rem;
+  font-weight:500;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.cell-sub{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+.num{color:var(--muted);font-weight:300}
+ 
+tr.completed-row{background:rgba(111,217,163,.04)}
+tr.completed-row .client-name{text-decoration:line-through;color:var(--muted)}
+ 
+.whatsapp-link{color:var(--green);font-weight:500;text-decoration:none}
+.whatsapp-link:hover{text-decoration:underline}
+ 
+.badge-hour{
+  display:inline-block;
+  padding:.1rem .4rem;
+  border:1px solid var(--line-strong);
+  border-radius:4px;
+  font-weight:500;
+  font-size:.8rem;
+  color:var(--ink);
+}
+ 
+.status-badge{
+  display:inline-block;
+  padding:.2rem .6rem;
+  border-radius:999px;
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.status-pending{background:var(--amber-bg);color:var(--amber)}
+.status-completed{background:var(--green-bg);color:var(--green)}
+ 
+.row-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+ 
+/* ---------- Aviso flotante ---------- */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  transform:translate(-50%,16px);
+  max-width:calc(100% - 32px);
+  padding:12px 18px;
+  background:#ECEDEF;
+  color:#12161A;
+  border-radius:12px;
+  font-size:.88rem;
+  font-weight:500;
+  box-shadow:0 10px 25px -5px rgba(0,0,0,.7);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s,transform .2s;
+  z-index:50;
+  text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.error{background:var(--red);color:#2A0D0A}
+ 
+/* ---------- Mis citas reservadas ---------- */
+.my-bookings{margin-bottom:28px}
+.my-bookings-list{display:grid;gap:12px}
+ 
+/* Animaciones táctiles */
+.btn,.combo,.hour{
+  position:relative;
+  overflow:hidden;
+  transition:transform .15s ease, background-color .15s ease;
+}
+.btn:active:not(:disabled), .combo:active, .hour.is-available:active{
+  transform:scale(.96);
+}
+</style>
+</head>
+ 
+<body>
+ 
+<div class="shell">
+  <div class="stripe" aria-hidden="true"></div>
+ 
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">AC</div>
+      <div>
+        <h1 id="nav-title">Arctic Cloud</h1>
+        <p id="nav-sub">Reserva móvil</p>
+      </div>
+    </div>
+    <div>
+      <button id="btn-switch-client" class="btn btn-primary" onclick="switchView('client')" style="display:none">Reservar</button>
+      <button id="btn-switch-admin" class="btn btn-ghost" onclick="checkAdminAccess()">Admin</button>
+    </div>
+  </header>
+ 
+  <main>
+ 
+    <!-- CLIENTE: FORMULARIO -->
+    <div id="client-view" class="view-section active">
+      <div class="page-head">
+        <h2>Reserva<br>tu corte</h2>
+        <p>Selecciona tu servicio, día y hora de forma rápida desde tu celular.</p>
+      </div>
+ 
+      <section id="my-bookings" class="my-bookings" style="display:none">
+        <h3 class="step">Tu cita actual</h3>
+        <div id="my-bookings-list" class="my-bookings-list"></div>
+      </section>
+ 
+      <div>
+        <form id="booking-form" onsubmit="saveAppointment(event)">
+ 
+          <section class="step-block">
+            <h3 class="step"><span class="step-n">01</span>Elige tu combo</h3>
+            <div class="combo-list" role="radiogroup" aria-label="Combo de corte">
+              <button type="button" class="combo" role="radio" aria-checked="false" onclick="selectCombo(this,'Combo 1: Corte Normal',90)">
+                <span class="combo-radio"></span>
+                <span class="combo-title">Combo 1: Corte Normal</span>
+                <span class="combo-price">$90</span>
+              </button>
+              <button type="button" class="combo" role="radio" aria-checked="false" onclick="selectCombo(this,'Combo 2: Corte Cero',100)">
+                <span class="combo-radio"></span>
+                <span class="combo-title">Combo 2: Corte Cero</span>
+                <span class="combo-price">$100</span>
+              </button>
+              <button type="button" class="combo" role="radio" aria-checked="false" onclick="selectCombo(this,'Combo 3: Corte Navaja',120)">
+                <span class="combo-radio"></span>
+                <span class="combo-title">Combo 3: Corte Navaja</span>
+                <span class="combo-price">$120</span>
+              </button>
+            </div>
+          </section>
+ 
+          <section class="step-block">
+            <h3 class="step"><span class="step-n">02</span>Elige el día</h3>
+            <div class="field date-field">
+              <input type="date" id="appointment-date" aria-label="Fecha de la cita" required onchange="loadOccupiedHours()">
+            </div>
+          </section>
+ 
+          <section class="step-block">
+            <h3 class="step"><span class="step-n">03</span>Elige la hora</h3>
+            <div class="legend">
+              <span><i class="swatch"></i>Libre</span>
+              <span><i class="swatch sel"></i>Elegida</span>
+              <span><i class="swatch busy"></i>Ocupada</span>
+            </div>
+            <div id="hours-container" class="hours-grid"></div>
+          </section>
+ 
+          <section class="step-block">
+            <h3 class="step"><span class="step-n">04</span>Tus datos</h3>
+            <div class="field">
+              <label for="client-name">Nombre completo</label>
+              <input type="text" id="client-name" required placeholder="Ej. Carlos Pérez" autocomplete="name">
+            </div>
+            <div class="field" style="margin-top: 14px;">
+              <label for="client-email">Correo electrónico</label>
+              <input type="email" id="client-email" required placeholder="correo@ejemplo.com" autocomplete="email">
+            </div>
+            <div class="field" style="margin-top: 14px;">
+              <label for="client-phone">Teléfono / WhatsApp</label>
+              <input type="tel" id="client-phone" required placeholder="9988-7766" autocomplete="tel">
+            </div>
+          </section>
+ 
+          <!-- Botón de confirmar -->
+          <div style="margin-top: 24px;">
+            <button id="submit-btn" type="submit" class="btn btn-primary btn-lg">Confirmar cita</button>
+          </div>
+ 
+        </form>
+      </div>
+    </div>
+ 
+    <!-- CLIENTE: CITA REGISTRADA -->
+    <div id="success-card-view" class="view-section">
+      <div class="ticket">
+        <div class="ticket-head">
+          <div class="ticket-check" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </div>
+          <h3>¡Cita confirmada!</h3>
+          <p>Tu reserva quedó registrada en este dispositivo.</p>
+        </div>
+ 
+        <div class="appointment-details" id="appointment-summary-box"></div>
+ 
+        <div class="ticket-actions">
+          <button class="btn btn-delete" onclick="cancelJustBookedAppointment()">Cancelar cita</button>
+          <button class="btn btn-primary" onclick="resetToNewBooking()">Agendar otra</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ADMIN -->
+    <div id="admin-view" class="view-section">
+      <div class="admin-head">
+        <div class="page-head" style="margin:0">
+          <h2>Panel Propietario</h2>
+          <p>Gestión de citas móviles.</p>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="loadAdminData()">Actualizar lista</button>
+      </div>
+ 
+      <div class="stats" id="stats-bar">
+        <div class="stat"><span>Totales</span><strong id="stat-total">0</strong></div>
+        <div class="stat"><span>Pendientes</span><strong id="stat-pending">0</strong></div>
+        <div class="stat"><span>Realizadas</span><strong id="stat-done">0</strong></div>
+        <div class="stat"><span>Ingresos</span><strong id="stat-income">$0</strong></div>
+      </div>
+ 
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Cliente</th>
+              <th>Contacto</th>
+              <th>Servicio</th>
+              <th>Fecha / Hora</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+            <tr><td colspan="6" class="loading">Cargando citas...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+ 
+  </main>
+</div>
+ 
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+ 
+<script>
+const DB_KEY = "ac_todas_las_citas";
+const MY_ACTIVE_ID_KEY = "ac_mi_cita_activa";
+ 
+let selectedComboData = null;
+let selectedHour = null;
+ 
+const availableHoursList = [
+  "8 am", "9 am", "10 am", "11 am", "12 pm", "1 pm", "2 pm", "3 pm", "4 pm", "5 pm", "6 pm", "7 pm", "8 pm", "9 pm", "10 pm"
+];
+ 
+function getTodayStr(){
+  const n = new Date();
+  return n.getFullYear() + "-" + String(n.getMonth() + 1).padStart(2, "0") + "-" + String(n.getDate()).padStart(2, "0");
+}
+ 
+const todayStr = getTodayStr();
+document.getElementById("appointment-date").min = todayStr;
+document.getElementById("appointment-date").value = todayStr;
+ 
+window.onload = function(){
+  loadOccupiedHours();
+  refreshMyBookings();
+};
+ 
+function getLocalDatabase(){
+  try{
+    const data = JSON.parse(localStorage.getItem(DB_KEY) || "[]");
+    return Array.isArray(data) ? data : [];
+  }catch(e){
+    return [];
+  }
+}
+ 
+function saveLocalDatabase(list){
+  try{
+    localStorage.setItem(DB_KEY, JSON.stringify(list));
+  }catch(e){}
+}
+ 
+function getMyActiveId(){
+  return localStorage.getItem(MY_ACTIVE_ID_KEY) || null;
+}
+
+function setMyActiveId(id){
+  if(id) localStorage.setItem(MY_ACTIVE_ID_KEY, id);
+  else localStorage.removeItem(MY_ACTIVE_ID_KEY);
+}
+ 
+function refreshMyBookings(){
+  const db = getLocalDatabase();
+  const activeId = getMyActiveId();
+  const wrap = document.getElementById("my-bookings");
+  const box = document.getElementById("my-bookings-list");
+ 
+  if(!activeId){
+    wrap.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+ 
+  const found = db.find(a => String(a.idDoc) === String(activeId) && a.status !== "Cancelada" && a.status !== "Completada");
+ 
+  if(!found){
+    setMyActiveId(null);
+    wrap.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+ 
+  box.innerHTML = `
+    <div class="summary booked" style="background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025)); border:1px solid var(--line); border-radius:14px; padding:18px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <h3 style="margin:0; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase;">Tu reserva activa</h3>
+        <span class="status-badge status-pending">Pendiente</span>
+      </div>
+      <dl style="margin:0">
+        <div class="row" style="display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); font-size:.88rem;"><dt style="color:var(--muted)">Servicio</dt><dd style="margin:0; font-weight:500; text-align:right;">${escapeHtml(found.service)}</dd></div>
+        <div class="row" style="display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); font-size:.88rem;"><dt style="color:var(--muted)">Día</dt><dd style="margin:0; font-weight:500; text-align:right;">${escapeHtml(formatDate(found.date))}</dd></div>
+        <div class="row" style="display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); font-size:.88rem;"><dt style="color:var(--muted)">Hora</dt><dd style="margin:0; font-weight:500; text-align:right;">${escapeHtml(found.hour)}</dd></div>
+      </dl>
+      <div style="display:flex; justify-content:space-between; align-items:baseline; padding:14px 0 16px;">
+        <span style="color:var(--muted); font-size:.88rem;">Total a pagar</span>
+        <span style="font-weight:300; font-size:2.2rem; line-height:1;">$${escapeHtml(found.precio)}</span>
+      </div>
+      <button type="button" class="btn btn-delete btn-lg" onclick="cancelMyBooking('${found.idDoc}')">Cancelar esta cita</button>
+    </div>
+  `;
+  wrap.style.display = "block";
+}
+ 
+async function cancelMyBooking(id){
+  if(!confirm("¿Seguro que quieres cancelar esta cita?")) return;
+  let db = getLocalDatabase();
+  db = db.filter(a => String(a.idDoc) !== String(id));
+  saveLocalDatabase(db);
+  setMyActiveId(null);
+  toast("Cita cancelada.");
+  loadOccupiedHours();
+  refreshMyBookings();
+}
+ 
+function hourTo24(h){
+  const parts = String(h).split(" ");
+  let v = parseInt(parts[0], 10) % 12;
+  if(parts[1] === "pm") v += 12;
+  return v;
+}
+ 
+function formatDate(str){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(String(str))) return String(str ?? "");
+  const p = str.split("-");
+  const d = new Date(+p[0], +p[1] - 1, +p[2]);
+  return d.toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long" });
+}
+ 
+let toastTimer = null;
+function toast(message, type){
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.className = "toast show" + (type === "error" ? " error" : "");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = "toast"; }, 3000);
+}
+ 
+function selectCombo(element, name, price){
+  document.querySelectorAll(".combo").forEach(c => c.setAttribute("aria-checked", "false"));
+  element.setAttribute("aria-checked", "true");
+  selectedComboData = { name: name, price: price };
+}
+ 
+function loadOccupiedHours(){
+  const date = document.getElementById("appointment-date").value;
+  const container = document.getElementById("hours-container");
+  container.innerHTML = '<div class="loading">Consultando horarios...</div>';
+  selectedHour = null;
+ 
+  const db = getLocalDatabase();
+  refreshMyBookings();
+ 
+  const occupied = db
+    .filter(a => a.date === date && a.status !== "Cancelada" && a.status !== "Completada")
+    .map(a => a.hour);
+ 
+  const now = new Date();
+  const isToday = (date === getTodayStr());
+  const currentHour24 = now.getHours();
+ 
+  container.innerHTML = availableHoursList.map(h => {
+    const isBooked = occupied.includes(h);
+    const h24 = hourTo24(h);
+    const isPast = isToday && (h24 <= currentHour24);
+ 
+    if(isBooked){
+      return `<button type="button" class="hour is-booked" disabled><span>${h}</span><small>Ocupada</small></button>`;
+    }
+    if(isPast){
+      return `<button type="button" class="hour is-past" disabled>${h}<small>Pasada</small></button>`;
+    }
+    return `<button type="button" class="hour is-available" onclick="selectHour(this,'${h}')">${h}</button>`;
+  }).join("");
+}
+ 
+function selectHour(element, hour){
+  document.querySelectorAll(".hour").forEach(h => h.classList.remove("is-selected"));
+  element.classList.add("is-selected");
+  selectedHour = hour;
+}
+ 
+function saveAppointment(event){
+  event.preventDefault();
+  if(!selectedComboData){
+    toast("Por favor selecciona un combo.", "error");
+    return;
+  }
+  if(!document.getElementById("appointment-date").value){
+    toast("Por favor selecciona una fecha.", "error");
+    return;
+  }
+  if(!selectedHour){
+    toast("Por favor selecciona una hora.", "error");
+    return;
+  }
+ 
+  const name = document.getElementById("client-name").value.trim();
+  const email = document.getElementById("client-email").value.trim();
+  const phone = document.getElementById("client-phone").value.trim();
+  const date = document.getElementById("appointment-date").value;
+ 
+  const submitBtn = document.getElementById("submit-btn");
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Guardando...";
+ 
+  setTimeout(() => {
+    try {
+      const db = getLocalDatabase();
+      const newId = "appt_" + Date.now();
+      
+      const newAppointment = {
+        idDoc: newId,
+        name: name,
+        email: email,
+        phone: phone,
+        service: selectedComboData.name,
+        precio: selectedComboData.price,
+        date: date,
+        hour: selectedHour,
+        status: "Pendiente"
+      };
+ 
+      db.push(newAppointment);
+      saveLocalDatabase(db);
+      setMyActiveId(newId);
+ 
+      renderSuccessTicket({
+        servicio: selectedComboData.name,
+        precio: selectedComboData.price,
+        fecha: date,
+        hora: selectedHour,
+        nombre: name,
+        correo: email,
+        telefono: phone
+      });
+ 
+      switchView("success");
+      toast("¡Cita reservada con éxito!");
+    } catch(e) {
+      toast("Error al guardar la cita en el dispositivo.", "error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Confirmar cita";
+    }
+  }, 300);
+}
+ 
+function renderSuccessTicket(data){
+  const box = document.getElementById("appointment-summary-box");
+  box.innerHTML = `
+    <div class="row"><span class="k">Cliente</span><span class="v">${escapeHtml(data.nombre)}</span></div>
+    <div class="row"><span class="k">Servicio</span><span class="v">${escapeHtml(data.servicio)}</span></div>
+    <div class="row"><span class="k">Día</span><span class="v">${escapeHtml(formatDate(data.fecha))}</span></div>
+    <div class="row"><span class="k">Hora</span><span class="v">${escapeHtml(data.hora)}</span></div>
+    <div class="row"><span class="k">Total</span><span class="v">$${escapeHtml(data.precio)}</span></div>
+  `;
+}
+ 
+function cancelJustBookedAppointment(){
+  const activeId = getMyActiveId();
+  if(!activeId){
+    resetToNewBooking();
+    return;
+  }
+  if(!confirm("¿Seguro que deseas cancelar tu cita?")) return;
+  let db = getLocalDatabase();
+  db = db.filter(a => String(a.idDoc) !== String(activeId));
+  saveLocalDatabase(db);
+  setMyActiveId(null);
+  toast("Cita cancelada.");
+  resetToNewBooking();
+}
+ 
+function resetToNewBooking(){
+  selectedHour = null;
+  document.getElementById("booking-form").reset();
+  document.getElementById("appointment-date").value = getTodayStr();
+  document.querySelectorAll(".combo").forEach(c => c.setAttribute("aria-checked", "false"));
+  selectedComboData = null;
+  loadOccupiedHours();
+  switchView("client");
+}
+ 
+function switchView(view){
+  document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
+  if(view === "client"){
+    document.getElementById("client-view").classList.add("active");
+    document.getElementById("btn-switch-client").style.display = "none";
+    document.getElementById("btn-switch-admin").style.display = "inline-flex";
+    document.getElementById("nav-title").textContent = "Arctic Cloud";
+    document.getElementById("nav-sub").textContent = "Reserva móvil";
+    refreshMyBookings();
+  } else if(view === "success"){
+    document.getElementById("success-card-view").classList.add("active");
+    document.getElementById("btn-switch-client").style.display = "inline-flex";
+    document.getElementById("btn-switch-admin").style.display = "none";
+    document.getElementById("nav-title").textContent = "Arctic Cloud";
+    document.getElementById("nav-sub").textContent = "Confirmación";
+  } else if(view === "admin"){
+    document.getElementById("admin-view").classList.add("active");
+    document.getElementById("btn-switch-client").style.display = "inline-flex";
+    document.getElementById("btn-switch-admin").style.display = "none";
+    document.getElementById("nav-title").textContent = "Admin";
+    document.getElementById("nav-sub").textContent = "Panel móvil";
+    loadAdminData();
+  }
+}
+ 
+function checkAdminAccess(){
+  const pass = prompt("Introduce la contraseña de administrador:");
+  if(pass === "1234"){
+    switchView("admin");
+  } else if(pass !== null){
+    toast("Contraseña incorrecta", "error");
+  }
+}
+ 
+function loadAdminData(){
+  const tbody = document.getElementById("table-body");
+  tbody.innerHTML = '<tr><td colspan="6" class="loading">Cargando citas...</td></tr>';
+  
+  const apps = getLocalDatabase();
+ 
+  let total = apps.length;
+  let pending = 0;
+  let done = 0;
+  let income = 0;
+ 
+  if(apps.length === 0){
+    tbody.innerHTML = '<tr><td colspan="6" class="loading">No hay citas en este celular.</td></tr>';
+  } else {
+    tbody.innerHTML = apps.map((a, i) => {
+      const isDone = a.status === "Completada";
+      if(isDone){
+        done++;
+        income += Number(a.precio || 0);
+      } else {
+        pending++;
+      }
+      return `
+        <tr class="${isDone ? "completed-row" : ""}">
+          <td class="num">${i + 1}</td>
+          <td>
+            <strong class="client-name">${escapeHtml(a.name)}</strong>
+            <span class="cell-sub">${escapeHtml(a.email || "")}</span>
+          </td>
+          <td>
+            <a href="https://wa.me/${cleanPhone(a.phone)}?text=${encodeURIComponent("Hola " + a.name + ", te contactamos de Arctic Cloud Booking respecto a tu cita para el " + formatDate(a.date) + " a las " + a.hour + ".")}" target="_blank" class="whatsapp-link">${escapeHtml(a.phone)}</a>
+          </td>
+          <td>${escapeHtml(a.service)} <span class="cell-sub">$${escapeHtml(a.precio || 0)}</span></td>
+          <td>
+            <span class="badge-hour">${escapeHtml(formatDate(a.date))}</span>
+            <span class="cell-sub">${escapeHtml(a.hour)}</span>
+          </td>
+          <td>
+            <span class="status-badge ${isDone ? "status-completed" : "status-pending"}">${isDone ? "Realizada" : "Pendiente"}</span>
+            <div class="row-actions">
+              ${isDone ? 
+                `<button class="btn btn-sm btn-undo" onclick="updateStatus('${a.idDoc}', 'Pendiente')">Pendiente</button>` : 
+                `<button class="btn btn-sm btn-ok" onclick="updateStatus('${a.idDoc}', 'Completada')">Realizada</button>`
+              }
+              <button class="btn btn-sm btn-delete" onclick="deleteAppointment('${a.idDoc}')">Borrar</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join("");
+  }
+ 
+  document.getElementById("stat-total").textContent = total;
+  document.getElementById("stat-pending").textContent = pending;
+  document.getElementById("stat-done").textContent = done;
+  document.getElementById("stat-income").textContent = "$" + income;
+}
+ 
+function updateStatus(id, newStatus){
+  let db = getLocalDatabase();
+  const index = db.findIndex(a => String(a.idDoc) === String(id));
+  if(index !== -1){
+    db[index].status = newStatus;
+    saveLocalDatabase(db);
+    if(newStatus === "Completada" && String(id) === String(getMyActiveId())){
+      setMyActiveId(null);
+    }
+    toast("Estado actualizado.");
+    loadAdminData();
+    refreshMyBookings();
+  } else {
+    toast("No se encontró la cita.", "error");
+  }
+}
+ 
+function deleteAppointment(id){
+  if(!confirm("¿Estás seguro de eliminar esta cita?")) return;
+  let db = getLocalDatabase();
+  db = db.filter(a => String(a.idDoc) !== String(id));
+  saveLocalDatabase(db);
+  if(String(id) === String(getMyActiveId())){
+    setMyActiveId(null);
+  }
+  toast("Cita eliminada.");
+  loadAdminData();
+  loadOccupiedHours();
+}
+ 
+function cleanPhone(p){
+  return String(p || "").replace(/\D/g, "");
+}
+ 
+function escapeHtml(str){
+  return String(str ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/️/g, "");
+}
+</script>
+</body>
+</html>
